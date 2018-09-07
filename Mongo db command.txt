@@ -1,0 +1,111 @@
+-----MongoDB commands-----
+
+
+RDBMS :Table -> record -> column
+Non RDBMS : Collections -> documents-> Fields
+
+
+create db and use
+------------------------------
+use <dbName>
+ex: 
+use school
+
+
+create collection and insert data
+------------------------------------------------
+db.<collectionName>.insert({"<key>" : "value"})
+
+ex: 
+db.students.insert({
+"name" : "Ganesh",
+"age" : "12"
+})
+
+
+
+find all documents
+----------------------
+db.students.find();
+
+
+find document by property
+------------------------------- 
+1) Find whose name is 'Ganesh'
+db.students.find({
+"name" : "Ganesh"
+})
+
+2) Find age greater than 20
+db.students.find({
+"name" : {$gt : 20}
+})
+
+3) Find age greater than equals 20
+db.students.find({
+"name" : {$gte : 20}
+})
+
+note: gt for greater than , lt for less than and ne for not equals 
+
+
+
+'AND' operator in query(',' works as 'AND' operator )
+----------------------------
+db.students.find(
+{
+  "name" : "sharanu",
+  "age" : "22"
+})
+
+
+
+'OR' operator in query('$or' works as 'OR' operator )
+----------------------------
+db.students.find(
+{
+  $or :[{"name" : "sharanu"}, {"age" : "22"}],
+})
+
+
+
+'AND' and 'OR' operators in single query
+------------------------------------------
+db.students.find(
+{
+  "name" : "Ganesh",
+  $or :[{"name" : "sharanu"}, {"age" : "22"}],
+})
+
+
+
+Update query(where name ='Sharanu' set name="Prashant")
+-----------------------------------------------------
+db.students.update(
+  {"name" : "sharanu"},
+  {$set : {"name" : "Prashant"}  }
+)
+Note: It will update only first found record
+
+
+Update query for multiple records(where age ='20')
+-----------------------------------------------------
+db.students.update(
+  {"age" : "20"},
+  {$set : {"name" : "Prashant"}  },
+  {multi :true}
+)
+
+Note: for multiple record update we need to set multi falg as true
+
+
+delete all document query
+------------------------------------
+db.students.remove({})
+
+
+
+
+refrence:
+https://stackoverflow.com/questions/20796714/how-do-i-start-mongo-db-from-windows
+
