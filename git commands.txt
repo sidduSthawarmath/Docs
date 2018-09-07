@@ -1,0 +1,88 @@
+
+GitHub Commands
+---------------------------
+
+
+$git init
+Initialize the git.
+
+$git remote add origin git@github.com:sidduSthawarmath/Employee.git
+Adding github repo to origin.
+
+
+$git status
+check the current status
+
+$git add .
+Pushing all the files to staging are
+
+$git add <file name>
+Pushing particular file to staging area
+
+$git commit -m “Initial commit”
+Committing the files in staging area with message
+
+$ git push -u origin master
+Pushing all the staging area files to origin from master branch
+
+$git clone git@github.com:sidduSthawarmath/Employee.git
+Cloning the repository to the local
+
+$git pull origin
+Pulling the latest commits from origin
+
+$ git checkout -b employee-190718
+Create new branch and switch to it
+
+$ git checkout employee-190718
+Switching the branches
+
+$git merge origin
+We should be in branch and execute the above command then master branch will merged with current branch
+
+$ git push -u origin employee-190718
+Pushing the branch to remote with all the changes
+
+
+
+$git push
+We should be in branch and execute the above command then all the current branch staging code will be moved to remote branch
+
+
+Create pull request for merging the master node
+
+1.Click on new pullRequest
+
+2.Select base as master from dropdown and compare as your branch name
+
+3.Select assignee name
+
+4Click on create pull request button
+
+
+Approving the pull request
+
+1.Click pull request(if exist we will able to see request count also)
+
+2.Click on merge pull request button
+
+3.Click on commit button
+
+
+
+
+
+
+Reference:
+https://github.com/joshnh/Git-Commands/blob/master/README.md
+ 
+
+
+
+
+
+
+
+
+
+
