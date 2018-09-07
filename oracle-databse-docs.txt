@@ -1,0 +1,44 @@
+Create oracle user
+------------------------------------------
+create user <user> IDENTIFIED BY <password>
+
+Grant all privileges
+---------------------------
+grant all privileges to <user>
+
+
+
+Grant import privileges
+------------------------
+(Open command promt)
+grant IMP_FULL_DATABASE to <user>
+
+
+import database
+---------------------------
+exp <user>/<password> file=<dmp file path> full=y
+example: imp test/pwd file=/home/siddu/ full=y
+
+
+
+import database
+---------------------------
+imp <user>/<password> file=<dmp file path> full=y
+example: imp test/pwd file=/home/siddu/export.dmp full=y
+
+
+
+Drop Oracle user
+--------------------------------------------------
+DROP USER <user> CASCADE;
+ALTER TABLESPACE <user> OFFLINE;
+DROP TABLESPACE <user> INCLUDING CONTENTS;
+ALTER TABLESPACE <user>_INDEX OFFLINE;
+DROP TABLESPACE <user>_INDEX INCLUDING CONTENTS;
+
+
+
+
+
+
+
