@@ -10,18 +10,17 @@ grant all privileges to <user>
 
 Grant import privileges
 ------------------------
-(Open command promt)
 grant IMP_FULL_DATABASE to <user>
 
 
-import database
+export database (in command promt)
 ---------------------------
 exp <user>/<password> file=<dmp file path> full=y
 example: imp test/pwd file=/home/siddu/ full=y
 
 
 
-import database
+import database (in command promt)
 ---------------------------
 imp <user>/<password> file=<dmp file path> full=y
 example: imp test/pwd file=/home/siddu/export.dmp full=y
