@@ -3,7 +3,7 @@
 * text=auto
 
 # Documents
-Inner Classes.odt  diff=text
+Inner Classes.odt  diff=odt
 *.DOC  diff=astextplain
 *.docx diff=astextplain
 *.DOCX diff=astextplain
