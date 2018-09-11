@@ -1,4 +1,0 @@
-*.doc diff=doc
-*.xls diff=xls
-*.ppt diff=ppt
-*.odt diff=odt
