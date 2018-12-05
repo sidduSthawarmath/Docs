@@ -75,6 +75,12 @@ Note : 'ngnix' is service name given in docker-compose file
 
 Docker file
 ---------------------------------
+	It is simple text file with instruction to build image or
+	AUtomation of docker image creation
+
+	
+Step 1: create file name Dockerfile	
+
 docker file build command
 ----------------------------------
 docker attach <image name>/<image id>
@@ -92,5 +98,7 @@ COPY <localFolder location> <Docker container location>
 
 ADD : ADD command is used to copy compressed files and it automatically 
 decompresses the file keeps the docker image
+
+
 
 
