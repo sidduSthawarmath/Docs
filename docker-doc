@@ -1,0 +1,20 @@
+$docker ps
+	Shows docker running container
+
+$docker images
+	Shows docker images
+
+$docker run -it --name myFirstImage -p 5050:80 -v ${PWD}/:/home/input ubuntu
+   Docker run -> Run command
+   -i -> Running image in interactive mode  and
+   -t -> It like doing ssh to container
+   --name -> Custom name given to the running container
+   -p -> Port <Exposed port outside> : <Internal port it is using>
+   -v -> Mounting the local dir to docker dir
+   
+  
+$docker start myFirstImage
+	We can start container by its name
+
+$docker inspect myFirstImage
+  Shows the working details of the container like ipAddress, mount locations etc
