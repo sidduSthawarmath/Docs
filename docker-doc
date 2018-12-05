@@ -99,6 +99,20 @@ COPY <localFolder location> <Docker container location>
 ADD : ADD command is used to copy compressed files and it automatically 
 decompresses the file keeps the docker image
 
+CMD : executing the run time command instruction
+example:
+ FROM ubuntu:16.04
+ CMD echo 'Welcome to docker'
+ 
+ Note:
+    If we use two CMD latest will get override
+	CMD echo 'Welcome to docker'
+	CMD echo 'Welcome to docker-latest'
+	
 
+ENTRYPOINT : This is also executing the run time instructions
+example:
+ FROM ubuntu:16.04
+ ENTRYPOINT ["echo","Welcome to docker"]
 
-
+	
