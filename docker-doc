@@ -18,3 +18,54 @@ $docker start myFirstImage
 
 $docker inspect myFirstImage
   Shows the working details of the container like ipAddress, mount locations etc
+  
+  
+  
+  
+Docker compose
+---------------------------------------------------------------------
+-> Tool fro defining and running multi container docker application
+-> Use yaml files for configuring the application(docker-compose.yml)
+->Can start all the services with single command : docker compose up
+->Can  stop all the services with single command : docker compose down
+->Can scale up selected services when required
+
+
+version
+--------
+docker-compose -v
+
+Create docker compose files
+-----------------------------
+docker-compose.yml
+
+version: '3'
+services:
+  ngnix:
+    image:ngnix
+	ports:
+	- 9090:80/tcp
+
+
+	Note:
+	ngnix -> image name pulling from docker hub
+
+
+Check the validity of file by command
+--------------------------------------
+docker-compose config
+
+To start the docker application
+-------------------------------
+docker-compose up -d
+Note : '-d' for dettached mode 
+
+To stop the docker application
+-------------------------------
+docker-compose down
+
+To scale up the application
+----------------------------
+docker-compose up -d --scale ngnix=4
+Note : 'ngnix' is service name given in docker-compose file
+
