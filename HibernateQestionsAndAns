@@ -1,0 +1,73 @@
+1.What is Hibernate
+ ORM tool
+ 
+2.N+1 problem in hibernate
+
+If we have parent and child relations in entity when we try to access parent object then it fires 1 query for parent objects
+and individual query for fetching its child's. It will decreases the performances.
+
+example:
+
+MobileVendor
+{
+int momVendorId;
+List<MobileModels> mobileModels;
+}
+
+it will fire query
+select * from MobileVendor;
+select * from mobileModels where momVendorId=?
+
+The Solution
+->Avoiding Eager Fetching
+->Using Join Fetch / Entity Graphs
+
+ref: https://dzone.com/articles/how-identify-and-resilve-n1
+
+
+3.What are the advantages of Hibernate over JDBC
+a) Caching
+b) Lazy Loading
+c) Relationship management and provides code for mapping an object to the data
+d) The developer is free from writing code to load/store data into the database.
+
+
+4.Difference between get() vs load() method in Hibernate? 
+load()
+	->Data must be there. If data not exist then it throws exception
+	->It will create proxy from there it will return data. There is no guaranty that it will hit db
+	->You must make sure data should be present in db
+
+get()
+	->There may be data exist or may not. If exist returns data if not returns null
+	->It always hit db
+
+conclusion:
+ If we have guaranty of data then we should go for load() it will improves performance due to its  proxy features
+ 
+ 
+5.What is the difference between save() and persist() method in Hibernate?
+save:
+ -> save() method saves records into database by INSERT SQL query, Generates a new identifier and return the Serializable identifier back
+
+ ->generates a new identifier(Unique id) and INSERT record into database
+
+SaveOrUpdate:
+  -> saveOrUpdate is more flexible in terms of use but it involves an extra processing to find out whether record already exists in table or not.
+ 
+  -> On the other hand  saveOrUpdate() method either INSERT or UPDATE based upon existence of object in database.
+	If persistence object already exists in database then UPDATE SQL will execute and if there is no corresponding object in database than INSERT will run.
+
+ 
+ Persist:
+ -> First difference between save and persist is there return type. Similar to save method persist also INSERT records into database but return type of persist is void while return type of save is Serializable object.  
+
+ -> Another difference between persist and save is that both methods make a transient instance persistent. However, persist() method doesn't guarantee that the identifier value will be assigned to the persistent instance immediately, the assignment might happen at flush time.
+
+
+ -> Fourth difference between save and persist method in Hibernate is related to previous difference on save vs persist. Because of its above behavior of persist method outside transaction boundary, its useful in long-running conversations with an extended Session context. On the other hand save method is not good in a long-running conversation with an extended Session context.
+
+
+6.What are different types of caches available in Hibernate?
+This is another common Hibernate interview question. Hibernate provides the out-of-box caching solution but there are many caches e.g. first level cache, second level cache, and query cache.The first level cache is maintained at Session level and cannot be disabled but the second level cache is required to be configured with external cache provider like EhCache.
+
