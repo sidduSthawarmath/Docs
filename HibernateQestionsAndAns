@@ -1,6 +1,8 @@
 1.What is Hibernate
  ORM tool
  
+
+
 2.N+1 problem in hibernate
 
 If we have parent and child relations in entity when we try to access parent object then it fires 1 query for parent objects
@@ -71,3 +73,137 @@ SaveOrUpdate:
 6.What are different types of caches available in Hibernate?
 This is another common Hibernate interview question. Hibernate provides the out-of-box caching solution but there are many caches e.g. first level cache, second level cache, and query cache.The first level cache is maintained at Session level and cannot be disabled but the second level cache is required to be configured with external cache provider like EhCache.
 
+
+
+1.What is Transaction Management
+
+Sequence of action that will be performed to complete database operation and its management is known as Transaction Management. 
+All these action in combination will be treated as ONE action only. So that DB doesn’t fall in inconsistent mode ever. 
+
+An important aspect of transaction management is defining the right transaction boundary, when should a transaction start, when should it end, 
+when data should be committed in DB and when it should be rolled back (in the case of exception).
+
+Ways of Managing Transactions
+A transaction can be managed in the following ways:
+
+ i.Programmatic transaction management: 
+	This means that you have to manage the transaction with the help of programming. That gives you extreme flexibility,
+   but it is difficult to maintain. 
+	
+	We can achive this by 
+	a. Using the TransactionTemplate 
+	b. Using a PlatformTransactionManager implementation directly
+
+	@Repository
+	public class EmployeeDaoTxnTemaplateServiceImpl implements EmployeeDaoTxnTemaplateService {
+	private PlatformTransactionManager transactionManager;
+	private DataSource dataSource;
+	private JdbcTemplate jdbcTemplate = null;
+
+	//This method is example of using the TransactionTemplate
+	public void saveEmpDetails(Employee emp) {
+		jdbcTemplate = new JdbcTemplate(dataSource);
+
+		TransactionTemplate template = new TransactionTemplate(transactionManager);
+		template.execute(new TransactionCallbackWithoutResult() {
+			@Override
+			protected void doInTransactionWithoutResult(TransactionStatus status) {
+				jdbcTemplate.update("insert into employee(name,phoneNum) values('UsingTxnTemplate','111')");
+
+				// If Uncomment this line it throw the run time exception then
+				// TransactionTemplate will manage the transaction and
+				// automatically rollback the previous transaction
+
+				/* throw new RuntimeException("Test the rollback scenario"); */
+			}
+		});
+		}
+
+	// This method is example of using a PlatformTransactionManager implementation directly
+	public void saveEmpDetailsUsingPlatformTxnmanger(Employee emp) {
+		TransactionDefinition def = new DefaultTransactionDefinition();
+		TransactionStatus status = transactionManager.getTransaction(def);
+		jdbcTemplate = new JdbcTemplate(dataSource);
+		try {
+			jdbcTemplate.update("insert into employee(name,phoneNum) values('PlatformTxnmanger','111')");
+
+			// Intentionally write code for arithmatic exception to avoid the
+			// commit and continue the transaction rollback
+			int x = 100 / 0;
+
+			transactionManager.commit(status);
+		} catch (Exception e) {
+			System.out.println("Error in creating record, rolling back");
+			transactionManager.rollback(status);
+		}
+	}
+
+
+
+
+
+ ii.Declarative transaction management: 
+	This means you separate transaction management from the business code. You only use annotations or XML-based configuration 
+   	to manage the transactions.Transactional provides annotation-based declarative transaction support which is similar to EJB container-managed 
+	transaction. With this annotation, we can specify transaction behavior to individual methods without coupling business logic with transaction code.
+
+
+
+
+Spring Transaction isolation level:
+
+Transaction : – It is a sequence of operations ( like read,update and write ) that works as a unit to accomplish a task. 
+like Booking a ticket,Selling a item.
+
+Isolation Level :-  this property allows multiple users to access the same set of data and each user’s processing should be
+isolated from others.
+
+Transaction specify isolation level that defines the degree to which one transaction must be isolated from other resource or 
+data modification by other transaction. A transaction always gets an exclusive lock on any data it modifies and holds that lock until the transaction completes, regardless of the isolation level set for that transaction
+
+ 
+Choosing the transaction isolation level does not affect on lock that are acquired to protect the data modification But it’s 
+control the data modification by more than one transaction by define good Isolation level. A low Isolation may be increased the
+ability of users to access the data at the same time that increase the number of concurrency i.e dirty read or lost of data.
+conversely higher Isolation level  reduces the type of concurrency effect that user may encounter.
+
+Hence,Isolation Lavel says, Changes made by one transaction on table data must be visible correctness to other transaction 
+and data must not be dirty or corrupted. 
+
+Isolation Level :- 
+	Read Uncommitted
+	Read Committed
+	Repeatable Read
+	Serializable
+
+
+Key Concepts to before to go Isolation
+dirty-read: 
+	A Dirty read is the situation when a transaction reads a data that has not yet been commited.For example, 
+	Let’s say transaction 1 updates a row and leaves it uncommited, meanwhile Transaction 2 reads the updated row. 
+	If transaction 1 rolls back the change, transaction 2 will have read data that is considered never to have existed.
+
+User A runs the same query twice.
+In between, User B runs a transaction and commits.
+
+Non-repeatable read: 
+	The A row that user A has queried has a different value the second time.
+
+Phantom read: 
+	All the rows in the query have the same value before and after, but different rows are being selected 
+	(because B has deleted or inserted some). Example: select sum(x) from table; will return a different result even if 
+	none of the affected rows themselves have been updated, if rows have been added or deleted.
+
+
+
+Default:
+ It uses the isolation of underlying datasource.
+
+
+Isolation Level		Dirty Read	Non Repeatable Read	Phantom
+------------------------------------------------------------------------
+Read uncommitted	Yes		Yes			Yes
+Read committed		No		Yes			Yes
+Repeatable read		No		No			Yes
+Snapshot		No		No			No
+Serializable		No		No			No
