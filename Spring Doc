@@ -1,13 +1,18 @@
 What is IOC Container in Spring?
 
-The Spring IOC Container is a core of the Spring Framework, It will create the objects, wire them together, configure and manage complete life cycle from creation till destruction.
+The Spring IOC Container is a core of the Spring Framework, It will create the objects, wire them together, 
+configure and manage complete life cycle from creation till destruction.
  The Spring Container uses DI(Dependency Injection) to manage the components that make up an application.
 
 The Container will create the objects, those objects are called as Spring Beans.
 
-Spring Bean is nothing special, any object in the Spring framework that we initialize through Spring container is called Spring Bean. Any normal Java POJO class can be a Spring Bean if it’s configured to be initialized via container by providing configuration metadata information.
+Spring Bean is nothing special, any object in the Spring framework that we initialize through Spring container is called Spring Bean.
+Any normal Java POJO class can be a Spring Bean if it’s configured to be initialized via container by providing configuration metadata
+information.
 
-The container gets its instructions on what objects to instantiate, configure and assemble by reading the configuration metadata provided. The configuration metadata can be represented either by XML, Java annotations or Java code. The following diagram represents a high-level view of how Spring Container works.
+The container gets its instructions on what objects to instantiate, configure and assemble by reading the configuration metadata 
+provided. The configuration metadata can be represented either by XML, Java annotations or Java code. The following diagram 
+represents a high-level view of how Spring Container works.
 
 
 
@@ -20,21 +25,25 @@ ApplicationContext Container
 
 Spring Annotations List:
 @Configuration
-	Used to indicate that a class declares one or more @Bean methods. These classes are processed by the Spring container to generate bean definitions and service requests for those beans at runtime.
+	Used to indicate that a class declares one or more @Bean methods. These classes are processed by the Spring container to 
+	generate bean definitions and service requests for those beans at runtime.
 
 
 @Bean: 
-	Indicates that a method produces a bean to be managed by the Spring container. This is one of the most used and important spring annotation. @Bean annotation also can be used with parameters like name, initMethod and destroyMethod.
+	Indicates that a method produces a bean to be managed by the Spring container. This is one of the most used and important
+	spring annotation. @Bean annotation also can be used with parameters like name, initMethod and destroyMethod.
 	name – allows you give name for bean
 	initMethod – allows you to choose method which will be invoked on 	context register
 	destroyMethod – allows you to choose method which will be invoked on context shutdown
 
 
-@PreDestroy and @PostConstruct are alternative way for bean initMethod and destroyMethod. It can be used when the bean class is defined by us. For example;
+@PreDestroy and @PostConstruct are alternative way for bean initMethod and destroyMethod. It can be used when the bean class is 
+defined by us. For example;
 
 
 @Component
-	The @Component annotation marks a java class as a bean so the component-scanning mechanism of spring can pick it up and pull it into the application context. To use this annotation, apply it over class
+	The @Component annotation marks a java class as a bean so the component-scanning mechanism of spring can pick it up and 
+	pull it into the application context. To use this annotation, apply it over class
 	@Component
 	public class EmployeeDAOImpl implements EmployeeDAO {
 	    ...
@@ -42,11 +51,16 @@ Spring Annotations List:
 
 
 @Service
-	The @Service annotation is also a specialization of the component annotation. It doesn’t currently provide any additional behavior over the @Component annotation, but it’s a good idea to use @Service over @Component in service-layer classes
+	The @Service annotation is also a specialization of the component annotation. It doesn’t currently provide any
+	additional behavior over the @Component annotation, but it’s a good idea to use @Service over @Component in service-layer
+	classes
 
 
 @Repository
-	Although above use of @Component is good enough but we can use more suitable annotation that provides additional benefits specifically for DAOs i.e. @Repository annotation. The @Repository annotation is a specialization of the @Component annotation with similar use and functionality. In addition to importing the DAOs into the DI container, it also makes the unchecked exceptions (thrown from DAO methods) eligible for translation into Spring DataAccessException.
+	Although above use of @Component is good enough but we can use more suitable annotation that provides additional 
+	benefits specifically for DAOs i.e. @Repository annotation. The @Repository annotation is a specialization of the 
+	@Component annotation with similar use and functionality. In addition to importing the DAOs into the DI container, 
+	it also makes the unchecked exceptions (thrown from DAO methods) eligible for translation into Spring DataAccessException.
 
 
 @Autowired
@@ -56,7 +70,8 @@ Spring Annotations List:
 
 2.byName – Auto wiring by property name. If the name of a bean is same as the name of other bean property, auto wire it.
 
-3.byType – Auto wiring by property data type. If data type of a bean is compatible with the data type of other bean property, auto wire it.
+3.byType – Auto wiring by property data type. If data type of a bean is compatible with the data type of other bean property, 
+auto wire it.
 
 4.constructor – byType mode in constructor argument.
 
@@ -129,7 +144,8 @@ How to inject implimenation of interface dynamically
 
 
 
-      In configuration class we need to generate bean of by based on the service name mentioned in application.properties file (ex: beanName=serviceB)
+      In configuration class we need to generate bean of by based on the service name mentioned in application.properties 
+      file (ex: beanName=serviceB)
 
 	@Configuration
 	public class ConfigurartionLoading {
